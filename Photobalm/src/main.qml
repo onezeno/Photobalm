@@ -17,11 +17,18 @@ ApplicationWindow {
             title: qsTr("&File")
             MenuItem {
                 text: qsTr("&Open")
-                onTriggered: messageDialog.show(qsTr("Open action triggered"));
+                onTriggered: fileDialog.visible = true;
             }
             MenuItem {
                 text: qsTr("E&xit")
                 onTriggered: Qt.quit();
+            }
+        }
+        Menu {
+            title: qsTr("&Edit")
+            MenuItem {
+                text: qsTr("&Clear");
+                onTriggered: messageDialog.show(qsTr("Clear action triggered"));
             }
         }
     }
@@ -41,26 +48,6 @@ ApplicationWindow {
         Component.onCompleted: visible = false
     }
 
-    Item {
-        id: splash
-        anchors.fill: parent
-
-        ColumnLayout {
-            Text {
-                id: title
-                text: "Photobalm"
-            }
-
-            Button {
-                id: selectImageButton
-                text: "Select Image"
-
-                onClicked: {
-                    fileDialog.visible = true;
-                }
-            }
-        }
-    }
 
     PBImage {
         id: main_image
