@@ -2,6 +2,7 @@ import QtQuick 2.4
 import QtQuick.Controls 1.3
 import QtQuick.Window 2.2
 import QtQuick.Dialogs 1.2
+import QtQuick.Layouts 1.1
 
 ApplicationWindow {
     title: qsTr("Photobalm")
@@ -23,12 +24,48 @@ ApplicationWindow {
         }
     }
 
-    MainForm {
-        anchors.fill: parent
-        button1.onClicked: messageDialog.show(qsTr("Button 1 pressed"))
-        button2.onClicked: messageDialog.show(qsTr("Button 2 pressed"))
-        button3.onClicked: messageDialog.show(qsTr("Button 3 pressed"))
+    FileDialog {
+        id: fileDialog
+        title: "Please choose a file"
+        onAccepted: {
+            main_image.source = fileDialog.fileUrl;
+            visible: false;
+            splash.visible = false;
+            canvas.visible = true;
+        }
+        onRejected: {
+            visible: false
+        }
+        Component.onCompleted: visible = false
     }
+
+    Item {
+        id: splash
+        anchors.fill: parent
+
+        ColumnLayout {
+            Text {
+                id: title
+                text: "Photobalm"
+            }
+
+            Button {
+                id: selectImageButton
+                text: "Select Image"
+
+                onClicked: {
+                    fileDialog.visible = true;
+                }
+            }
+        }
+    }
+
+    Image {
+        id: main_image
+        fillMode: Image.PreserveAspectFit
+    }
+
+
 
     MessageDialog {
         id: messageDialog
