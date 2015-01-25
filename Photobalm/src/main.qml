@@ -26,7 +26,7 @@ ApplicationWindow {
             title: qsTr("&Edit")
             MenuItem {
                 text: qsTr("&Clear");
-                onTriggered: messageDialog.show(qsTr("Clear action triggered"));
+                onTriggered: editMenuHandler.clear();
             }
         }
     }
@@ -35,7 +35,7 @@ ApplicationWindow {
         id: fileDialog
         title: "Please choose a file"
         onAccepted: {
-            main_image.source = fileDialog.fileUrl;
+            mainImage.source = fileDialog.fileUrl;
             visible: false;
             splash.visible = false;
             canvas.visible = true;
@@ -48,17 +48,18 @@ ApplicationWindow {
 
 
     Image {
-        id: main_image
+        id: mainImage
         fillMode: Image.PreserveAspectFit
     }
 
 
     MessageDialog {
         id: messageDialog
-        title: qsTr("May I have your attention, please?")
+        title: qsTr("")
 
-        function show(caption) {
-            messageDialog.text = caption;
+        function show(text, title) {
+            messageDialog.title = title;
+            messageDialog.text = text;
             messageDialog.open();
         }
     }
