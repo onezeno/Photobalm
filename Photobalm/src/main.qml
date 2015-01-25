@@ -4,6 +4,8 @@ import QtQuick.Window 2.2
 import QtQuick.Dialogs 1.2
 import QtQuick.Layouts 1.1
 
+import PhotoBalm 1.0
+
 ApplicationWindow {
     title: qsTr("Photobalm")
     width: 640
@@ -28,10 +30,10 @@ ApplicationWindow {
         id: fileDialog
         title: "Please choose a file"
         onAccepted: {
-            main_image.source = fileDialog.fileUrl;
+            main_image.setImage(fileDialog.fileUrl)
+            main_image.update()
             visible: false;
             splash.visible = false;
-            canvas.visible = true;
         }
         onRejected: {
             visible: false
@@ -60,11 +62,9 @@ ApplicationWindow {
         }
     }
 
-    Image {
+    PBImage {
         id: main_image
-        fillMode: Image.PreserveAspectFit
     }
-
 
 
     MessageDialog {
