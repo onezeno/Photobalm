@@ -13,10 +13,6 @@ int main(int argc, char *argv[])
   QQmlApplicationEngine engine;
   engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
-  //PBImage *image = new PBImage();
-
-  //engine.addImageProvider("images", imageProvider);
-  //engine.rootContext()->setContextProperty("mainImage", image);
 
 
   return app.exec();

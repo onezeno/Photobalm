@@ -15,20 +15,15 @@ public:
   PBImage();
   ~PBImage();
 
-  virtual void paint(QPainter *painter)
-  {
-    qDebug() << "paint";
-    painter->drawImage(painter->window(), m_image);
-  }
-
-  Q_INVOKABLE void setImage(QString url)
-  {
-    qDebug() << url;
-    m_image.load(url);
-  }
+  virtual void paint(QPainter *painter);
+  Q_INVOKABLE void setImage(QString url);
+  Q_INVOKABLE void highlight(int x, int y);
 
 private:
   QImage m_image;
+
+  void highlightArea(int x, int y, int r);
+
 };
 
 #endif // PBIMAGE_H

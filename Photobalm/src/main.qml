@@ -40,7 +40,6 @@ ApplicationWindow {
             main_image.setImage(fileDialog.fileUrl)
             main_image.update()
             visible: false;
-            splash.visible = false;
         }
         onRejected: {
             visible: false
@@ -48,10 +47,16 @@ ApplicationWindow {
         Component.onCompleted: visible = false
     }
 
-
-    PBImage {
-        id: main_image
+    MouseArea {
+        anchors.fill: parent
+        onClicked: main_image.highlight(mouseX, mouseY)
+        onPositionChanged: if ( true ) { main_image.highlight(mouseX, mouseY) }
+        PBImage {
+            id: main_image
+            anchors.fill: parent
+        }
     }
+
 
 
     MessageDialog {
