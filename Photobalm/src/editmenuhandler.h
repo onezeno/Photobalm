@@ -5,6 +5,7 @@
 #include <QObject>
 #include <QDebug>
 #include "commandqueue.h"
+#include "commandstack.h"
 
 
 using namespace photobalm;
@@ -19,8 +20,12 @@ class EditMenuHandler : public QObject
 public:
     explicit EditMenuHandler( QObject *parent
                             , CommandQueue& cmd_queue
-                            , CommandQueue& undo_queue);
+                            , CommandStack& undo_queue
+                            , CommandQueue& redo_queue);
     ~EditMenuHandler();
+
+    Q_INVOKABLE void undo();
+    Q_INVOKABLE void redo();
 
     Q_INVOKABLE void clear();
 
@@ -33,7 +38,8 @@ protected:
 
 private:
     CommandQueue& cmdQueue;
-    CommandQueue& undoQueue;
+    CommandStack& undoStack;
+    CommandQueue& redoQueue;
 };
 
 

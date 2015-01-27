@@ -4,6 +4,7 @@
 
 #include "editmenuhandler.h"
 #include "commandqueue.h"
+#include "pbimage.h"
 
 
 using namespace photobalm;
@@ -11,18 +12,21 @@ using namespace photobalm;
 
 int main(int argc, char *argv[])
 {
-    QApplication app(argc, argv);
+  QApplication app(argc, argv);
 
-    CommandQueue undoQueue;
-    CommandQueue cmdQueue;
+  CommandStack undoStack;
+  CommandQueue redoQueue;
+  CommandQueue cmdQueue;
 
-    EditMenuHandler editMenuHandler(&app, cmdQueue, undoQueue);
+  EditMenuHandler editMenuHandler(&app, cmdQueue, undoStack, redoQueue);
+
+  qmlRegisterType<PBImage>("PhotoBalm",1,0,"PBImage");
 
 
-    QQmlApplicationEngine engine;
-    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
+  QQmlApplicationEngine engine;
+  engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
-    engine.rootContext()->setContextProperty("editMenuHandler", &editMenuHandler);
+  engine.rootContext()->setContextProperty("editMenuHandler", &editMenuHandler);
 
-    return app.exec();
+  return app.exec();
 }

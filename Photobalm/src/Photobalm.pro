@@ -6,7 +6,10 @@ SOURCES += main.cpp \
     commandprocessor.cpp \
     command.cpp \
     editmenuhandler.cpp \
-    commandclear.cpp
+    commandclear.cpp \
+    selection.cpp \
+    pbimage.cpp
+
 
 RESOURCES += qml.qrc
 
@@ -23,4 +26,8 @@ HEADERS += \
     commandexception.h \
     commandprocessor.h \
     editmenuhandler.h \
-    commandclear.h
+    commandclear.h \
+    selection.h \
+    selectionlist.h \
+    commandstack.h \
+    pbimage.h
