@@ -18,9 +18,18 @@ void PBImage::setImage(QString url)
 }
 
 
-void PBImage::highlight(int x, int y)
+void PBImage::highlight(int x, int y, int width, int height)
 {
-  highlightArea(x, y, 5);
+  // transform the input pixel from the container coordinates to the image coordinates
+  float x_f = static_cast<float>(m_image.width()) / static_cast<float>(width);
+  float scaled_x_f = x_f * static_cast<float>(x);
+  int scaled_x = static_cast<int>(scaled_x_f); // NOTE: always rounds down
+
+  float y_f = static_cast<float>(m_image.height()) / static_cast<float>(height);
+  float scaled_y_f = y_f * static_cast<float>(y);
+  int scaled_y = static_cast<int>(scaled_y_f);
+
+  highlightArea(scaled_x, scaled_y, 5);
   update();
 }
 

@@ -49,8 +49,8 @@ ApplicationWindow {
 
     MouseArea {
         anchors.fill: parent
-        onClicked: main_image.highlight(mouseX, mouseY)
-        onPositionChanged: if ( true ) { main_image.highlight(mouseX, mouseY) }
+        onClicked: main_image.highlight(mouseX, mouseY, width, height)
+        onPositionChanged: main_image.highlight(mouseX, mouseY, width, height)
         PBImage {
             id: main_image
             anchors.fill: parent

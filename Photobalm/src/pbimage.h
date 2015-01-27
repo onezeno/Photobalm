@@ -17,7 +17,7 @@ public:
 
   virtual void paint(QPainter *painter);
   Q_INVOKABLE void setImage(QString url);
-  Q_INVOKABLE void highlight(int x, int y);
+  Q_INVOKABLE void highlight(int x, int y, int width, int height);
 
 private:
   QImage m_image;
