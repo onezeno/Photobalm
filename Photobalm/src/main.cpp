@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
 {
   QApplication app(argc, argv);
 
-  RadiusFillTool radius_fill_tool(5, QColor(0, 0, 0));
+  RadiusFillTool radius_fill_tool(5, QColor(255, 0, 0));
 
   ImageToolProvider tool_provider;
   tool_provider.SetTool(&radius_fill_tool);

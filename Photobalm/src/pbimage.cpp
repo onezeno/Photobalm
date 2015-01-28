@@ -73,3 +73,15 @@ void PBImage::setPixel(int x, int y, QColor color)
     m_image.setPixel(x, y, color.rgb());
 }
 
+
+int PBImage::GetWidth()
+{
+    return m_image.width();
+}
+
+
+int PBImage::GetHeight()
+{
+    return m_image.height();
+}
+

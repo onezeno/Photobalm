@@ -23,6 +23,9 @@ public:
 
   void setPixel(int x, int y, QColor color);
 
+  int GetWidth();
+  int GetHeight();
+
 private:
   QImage m_image;
 

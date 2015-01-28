@@ -34,7 +34,7 @@ MouseHandler::~MouseHandler()
 
 void MouseHandler::onClicked(int mouseX, int mouseY, int width, int height)
 {
-    qDebug() << "MouseHandler::OnClicked " << mouseX << ", " << mouseY;
+    qDebug() << "MouseHandler::OnClicked " << mouseX << ", " << mouseY << ", " << width << ", " << height;
 
     PBImage* image = imageProvider.GetImage();
 
@@ -43,14 +43,13 @@ void MouseHandler::onClicked(int mouseX, int mouseY, int width, int height)
         return;
     }
 
-    // transform the input pixel from the container coordinates to the image coordinates
-    float x_f = static_cast<float>(image->width()) / static_cast<float>(width);
-    float scaled_x_f = x_f * static_cast<float>(mouseX);
-    int x = static_cast<int>(scaled_x_f); // NOTE: always rounds down
+    qDebug() << "MouseHandler::OnClicked PBImage " << image->width() << ", " << image->height();
+    qDebug() << "MouseHandler::OnClicked QImage " << image->GetWidth() << ", " << image->GetHeight();
 
-    float y_f = static_cast<float>(image->height()) / static_cast<float>(height);
-    float scaled_y_f = y_f * static_cast<float>(mouseY);
-    int y = static_cast<int>(scaled_y_f);
+
+    // transform the input pixel from the container coordinates to the image coordinates
+    int x = (mouseX * image->GetWidth()) / width;
+    int y = (mouseY * image->GetHeight()) / height;
 
     ImageTool* tool = toolProvider.GetTool();
 
