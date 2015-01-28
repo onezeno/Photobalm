@@ -65,3 +65,11 @@ void PBImage::highlightArea(int x, int y, int r)
   }
 }
 
+
+
+
+void PBImage::setPixel(int x, int y, QColor color)
+{
+    m_image.setPixel(x, y, color.rgb());
+}
+

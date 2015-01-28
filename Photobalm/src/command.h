@@ -2,7 +2,8 @@
 #define COMMAND_H
 
 
-#include <QObject>
+#include "imageprovider.h"
+#include "selectionlist.h"
 
 
 namespace photobalm {
@@ -10,20 +11,22 @@ namespace photobalm {
 
 
 
-class Command : public QObject
+class Command
 {
-    Q_OBJECT
-
 public:
-    explicit Command(QObject *parent = 0);
-    ~Command();
+    Command(ImageProvider& image, const SelectionList&);
+    virtual ~Command();
 
     virtual void execute() = 0;
     virtual void undo() = 0;
 
-signals:
+protected:
+    ImageProvider& GetImageProvider();
+    SelectionList& GetSelectionList();
 
-public slots:
+private:
+    ImageProvider& imageProvider;
+    SelectionList selectionList;
 };
 
 

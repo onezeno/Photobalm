@@ -2,9 +2,17 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 
-#include "editmenuhandler.h"
 #include "commandqueue.h"
+#include "commandprocessor.h"
+#include "commandstack.h"
+#include "editmenuhandler.h"
+#include "filemenuhandler.h"
+#include "imageprovider.h"
+#include "imagetoolprovider.h"
+#include "mousehandler.h"
 #include "pbimage.h"
+#include "radiusfilltool.h"
+#include "toolmenuhandler.h"
 
 
 using namespace photobalm;
@@ -14,19 +22,44 @@ int main(int argc, char *argv[])
 {
   QApplication app(argc, argv);
 
-  CommandStack undoStack;
-  CommandQueue redoQueue;
-  CommandQueue cmdQueue;
+  RadiusFillTool radius_fill_tool(5, QColor(0, 0, 0));
 
-  EditMenuHandler editMenuHandler(&app, cmdQueue, undoStack, redoQueue);
+  ImageToolProvider tool_provider;
+  tool_provider.SetTool(&radius_fill_tool);
+
+  CommandStack undo_stack;
+  CommandQueue redo_queue;
+  CommandQueue cmd_queue;
+
+  CommandProcessor cmd_processor(cmd_queue);
+
+
+  EditMenuHandler edit_menu_handler(&app, cmd_queue, undo_stack, redo_queue);
+  ToolMenuHandler tool_menu_handler(&app);
 
   qmlRegisterType<PBImage>("PhotoBalm",1,0,"PBImage");
-
 
   QQmlApplicationEngine engine;
   engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
-  engine.rootContext()->setContextProperty("editMenuHandler", &editMenuHandler);
+  qDebug() << "engine loaded " << engine.rootObjects().size() << " root objects";
+
+  QObject* root = engine.rootObjects().first();
+  PBImage* image = root->findChild<PBImage*>("mainImage");
+
+  qDebug() << "Image pointer is " << int(image);
+
+  ImageProvider image_provider;
+  image_provider.SetImage(image);
+
+  FileMenuHandler file_menu_handler(&app, image_provider);
+  MouseHandler mouse_handler(&app, image_provider, tool_provider, cmd_processor);
+
+
+  engine.rootContext()->setContextProperty("mouseHandler", &mouse_handler);
+  engine.rootContext()->setContextProperty("fileMenuHandler", &file_menu_handler);
+  engine.rootContext()->setContextProperty("editMenuHandler", &edit_menu_handler);
+  engine.rootContext()->setContextProperty("toolMenuHandler", &tool_menu_handler);
 
   return app.exec();
 }

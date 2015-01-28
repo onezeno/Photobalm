@@ -2,7 +2,8 @@
 #define SELECTION_H
 
 
-#include <QObject>
+#include "imageiterator.h"
+#include <memory>
 
 
 namespace photobalm {
@@ -10,16 +11,14 @@ namespace photobalm {
 
 
 
-class Selection : public QObject
+class Selection
 {
-    Q_OBJECT
 public:
-    explicit Selection(QObject *parent = 0);
-    ~Selection();
+    Selection();
+    virtual ~Selection();
 
-signals:
-
-public slots:
+    virtual ImageIterator Begin(PBImage&) = 0;
+    virtual ImageIterator End();
 };
 
 

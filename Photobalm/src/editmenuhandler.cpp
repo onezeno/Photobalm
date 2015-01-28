@@ -1,5 +1,4 @@
 #include "editmenuhandler.h"
-#include "commandclear.h"
 #include <memory>
 
 using namespace photobalm;
@@ -55,13 +54,5 @@ void EditMenuHandler::redo()
 
 
 
-void EditMenuHandler::clear()
-{
-    std::shared_ptr<Command> cmd = std::shared_ptr<Command>(new CommandClear());
 
-    undoStack.push(cmd);
-    cmdQueue.push(cmd);
-
-    qDebug() << "pushed CommandClear";
-}
 

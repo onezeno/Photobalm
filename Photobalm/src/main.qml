@@ -27,8 +27,19 @@ ApplicationWindow {
         Menu {
             title: qsTr("&Edit")
             MenuItem {
-                text: qsTr("&Clear");
-                onTriggered: editMenuHandler.clear();
+                text: qsTr("Undo (Ctrl+&Z)");
+                onTriggered: editMenuHandler.undo();
+            }
+            MenuItem {
+                text: qsTr("Redo (Ctrl+&Y)");
+                onTriggered: editMenuHandler.redo();
+            }
+        }
+        Menu {
+            title: qsTr("&Tools")
+            MenuItem {
+                text: qsTr("&Fill");
+                onTriggered: toolMenuHandler.fill();
             }
         }
     }
@@ -37,8 +48,9 @@ ApplicationWindow {
         id: fileDialog
         title: "Please choose a file"
         onAccepted: {
-            main_image.setImage(fileDialog.fileUrl)
-            main_image.update()
+            fileMenuHandler.load(fileDialog.fileUrl)
+//            main_image.setImage(fileDialog.fileUrl)
+//            main_image.update()
             visible: false;
         }
         onRejected: {
@@ -49,10 +61,13 @@ ApplicationWindow {
 
     MouseArea {
         anchors.fill: parent
-        onClicked: main_image.highlight(mouseX, mouseY, width, height)
-        onPositionChanged: main_image.highlight(mouseX, mouseY, width, height)
+        onClicked: mouseHandler.onClicked(mouseX, mouseY, width, height, main_image)
+        onPositionChanged: mouseHandler.onPositionChanged(mouseX, mouseY, width, height, main_image)
+//        onClicked: main_image.highlight(mouseX, mouseY, width, height)
+//        onPositionChanged: main_image.highlight(mouseX, mouseY, width, height)
         PBImage {
             id: main_image
+            objectName: "mainImage"
             anchors.fill: parent
         }
     }

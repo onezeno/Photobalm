@@ -6,7 +6,7 @@ namespace photobalm {
 
 
 
-Selection::Selection(QObject *parent) : QObject(parent)
+Selection::Selection()
 {
 
 }
@@ -16,6 +16,11 @@ Selection::~Selection()
 
 }
 
+
+ImageIterator Selection::End()
+{
+    return ImageIterator(0);
+}
 
 
 

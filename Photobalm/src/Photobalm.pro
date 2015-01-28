@@ -6,9 +6,21 @@ SOURCES += main.cpp \
     commandprocessor.cpp \
     command.cpp \
     editmenuhandler.cpp \
-    commandclear.cpp \
     selection.cpp \
-    pbimage.cpp
+    pbimage.cpp \
+    imagetool.cpp \
+    selector.cpp \
+    radiusselector.cpp \
+    point2d.cpp \
+    radiusfilltool.cpp \
+    radiusselection.cpp \
+    fillcommand.cpp \
+    toolmenuhandler.cpp \
+    mousehandler.cpp \
+    imagetoolprovider.cpp \
+    filemenuhandler.cpp \
+    imageprovider.cpp \
+    imageiterator.cpp
 
 
 RESOURCES += qml.qrc
@@ -26,8 +38,22 @@ HEADERS += \
     commandexception.h \
     commandprocessor.h \
     editmenuhandler.h \
-    commandclear.h \
     selection.h \
     selectionlist.h \
     commandstack.h \
-    pbimage.h
+    pbimage.h \
+    imagetool.h \
+    selector.h \
+    radiusselector.h \
+    point2d.h \
+    radiusfilltool.h \
+    radiusselection.h \
+    fillcommand.h \
+    toolmenuhandler.h \
+    mousehandler.h \
+    imagetoolprovider.h \
+    filemenuhandler.h \
+    imageprovider.h \
+    commandsharedptr.h \
+    imageiterator.h \
+    selectionsharedptr.h

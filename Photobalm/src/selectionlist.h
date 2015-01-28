@@ -2,9 +2,8 @@
 #define SELECTIONLIST_H
 
 
-#include "selection.h"
+#include "selectionsharedptr.h"
 #include <list>
-#include <memory>
 
 
 namespace photobalm {
@@ -12,7 +11,7 @@ namespace photobalm {
 
 
 
-typedef std::list< std::shared_ptr<Selection> > SelectionList;
+typedef std::list< SelectionSharedPtr > SelectionList;
 
 
 

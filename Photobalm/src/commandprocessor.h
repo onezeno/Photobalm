@@ -2,7 +2,8 @@
 #define COMMANDPROCESSOR_H
 
 
-#include <QObject>
+#include "commandqueue.h"
+#include "commandsharedptr.h"
 
 
 namespace photobalm {
@@ -10,18 +11,17 @@ namespace photobalm {
 
 
 
-class CommandProcessor : public QObject
+class CommandProcessor
 {
-    Q_OBJECT
-
 public:
-    explicit CommandProcessor(QObject *parent = 0);
+    explicit CommandProcessor(CommandQueue& cmd_queue);
     ~CommandProcessor();
 
-signals:
-    void process();
+    virtual void Process();
+    virtual void Process(CommandSharedPtr& command);
 
-public slots:
+private:
+    CommandQueue& cmdQueue;
 };
 
 

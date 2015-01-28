@@ -1,11 +1,13 @@
 #ifndef PBIMAGE_H
 #define PBIMAGE_H
 
+#include <QColor>
 #include <QPainter>
 #include <QQuickPaintedItem>
 #include <QImage>
 
 #include <QDebug>
+
 
 class PBImage : public QQuickPaintedItem
 {
@@ -18,6 +20,8 @@ public:
   virtual void paint(QPainter *painter);
   Q_INVOKABLE void setImage(QString url);
   Q_INVOKABLE void highlight(int x, int y, int width, int height);
+
+  void setPixel(int x, int y, QColor color);
 
 private:
   QImage m_image;
