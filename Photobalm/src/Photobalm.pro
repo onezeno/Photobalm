@@ -11,7 +11,6 @@ SOURCES += main.cpp \
     imagetool.cpp \
     selector.cpp \
     radiusselector.cpp \
-    point2d.cpp \
     radiusfilltool.cpp \
     radiusselection.cpp \
     fillcommand.cpp \
@@ -20,7 +19,17 @@ SOURCES += main.cpp \
     imagetoolprovider.cpp \
     filemenuhandler.cpp \
     imageprovider.cpp \
-    imageiterator.cpp
+    imageiterator.cpp \
+    commandinterface.cpp \
+    imagesliceiterator.cpp \
+    rect2d.cpp \
+    imagetoolinterface.cpp \
+    point2dselectionlist.cpp \
+    rect2diterator.cpp \
+    selectorinterface.cpp \
+    point2diterator.cpp \
+    selectorprovider.cpp \
+    imagepoint2d.cpp
 
 
 RESOURCES += qml.qrc
@@ -45,7 +54,6 @@ HEADERS += \
     imagetool.h \
     selector.h \
     radiusselector.h \
-    point2d.h \
     radiusfilltool.h \
     radiusselection.h \
     fillcommand.h \
@@ -56,4 +64,17 @@ HEADERS += \
     imageprovider.h \
     commandsharedptr.h \
     imageiterator.h \
-    selectionsharedptr.h
+    selectionsharedptr.h \
+    commandinterface.h \
+    imagesliceiterator.h \
+    rect2d.h \
+    imagetoolinterface.h \
+    point2dselectionlist.h \
+    point2dselection.h \
+    rect2dselection.h \
+    rect2diterator.h \
+    rect2dselectionlist.h \
+    selectorinterface.h \
+    point2diterator.h \
+    selectorprovider.h \
+    imagepoint2d.h

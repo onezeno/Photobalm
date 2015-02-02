@@ -74,13 +74,13 @@ void PBImage::setPixel(int x, int y, QColor color)
 }
 
 
-int PBImage::GetWidth()
+int PBImage::GetWidth() const
 {
     return m_image.width();
 }
 
 
-int PBImage::GetHeight()
+int PBImage::GetHeight() const
 {
     return m_image.height();
 }

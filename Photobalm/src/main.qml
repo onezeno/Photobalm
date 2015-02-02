@@ -49,8 +49,6 @@ ApplicationWindow {
         title: "Please choose a file"
         onAccepted: {
             fileMenuHandler.load(fileDialog.fileUrl)
-//            main_image.setImage(fileDialog.fileUrl)
-//            main_image.update()
             visible: false;
         }
         onRejected: {
@@ -63,8 +61,6 @@ ApplicationWindow {
         anchors.fill: parent
         onClicked: mouseHandler.onClicked(mouseX, mouseY, width, height, main_image)
         onPositionChanged: mouseHandler.onPositionChanged(mouseX, mouseY, width, height, main_image)
-//        onClicked: main_image.highlight(mouseX, mouseY, width, height)
-//        onPositionChanged: main_image.highlight(mouseX, mouseY, width, height)
         PBImage {
             id: main_image
             objectName: "mainImage"

@@ -6,7 +6,10 @@ using namespace photobalm;
 
 
 
-EditMenuHandler::EditMenuHandler(QObject* parent, CommandQueue& cmd_queue, CommandStack& undo_stack, CommandQueue& redo_queue)
+EditMenuHandler::EditMenuHandler( QObject* parent
+                                , CommandQueue& cmd_queue
+                                , CommandStack& undo_stack
+                                , CommandQueue& redo_queue)
   : QObject(parent)
   , cmdQueue(cmd_queue)
   , undoStack(undo_stack)
@@ -28,27 +31,28 @@ EditMenuHandler::~EditMenuHandler()
 
 void EditMenuHandler::undo()
 {
-  std::shared_ptr<Command> cmd = undoStack.top();
-  undoStack.pop();
+    qDebug() << "EditMenuHandler::undo";
 
-  redoQueue.push(cmd);
-  cmdQueue.push(cmd);
+//  std::shared_ptr<Command> cmd = undoStack.top();
+//  undoStack.pop();
 
-  qDebug() << "undo";
+//  redoQueue.push(cmd);
+//  cmdQueue.push(cmd);
 }
 
 
 
 
 void EditMenuHandler::redo()
-{
-  std::shared_ptr<Command> cmd = redoQueue.front();
-  redoQueue.pop();
+{    
+    qDebug() << "EditMenuHandler::undo";
 
-  undoStack.push(cmd);
-  cmdQueue.push(cmd);
+//  std::shared_ptr<Command> cmd = redoQueue.front();
+//  redoQueue.pop();
 
-  qDebug() << "redo";
+//  undoStack.push(cmd);
+//  cmdQueue.push(cmd);
+
 }
 
 

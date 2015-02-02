@@ -9,7 +9,7 @@ namespace photobalm {
 
 RadiusFillTool::RadiusFillTool(int radius, QColor color)
 : ImageTool()
-, selector(radius)
+, radius(radius)
 , color(color)
 {
 
@@ -26,18 +26,33 @@ RadiusFillTool::~RadiusFillTool()
 
 
 
-Selector& RadiusFillTool::GetSelector()
+CommandSharedPtr RadiusFillTool::CreateCommand()
 {
-    return selector;
+    qDebug() << "RadiusFillTool::CreateCommand";
+
+    PBImage* image = GetImage();
+    if (!image)
+    {
+        throw std::runtime_error("need image");
+    }
+
+    SelectionList* selection_list = GetSelectionList();
+    if (!selection_list)
+    {
+        throw std::runtime_error("need selection list");
+    }
+
+
+    qDebug() << "creating RadiusFillCommand";
+
+    return CommandSharedPtr(
+        new RadiusFillCommand(
+            *image,
+            *selection_list,
+            color)
+    );
 }
 
-
-
-
-CommandSharedPtr RadiusFillTool::CreateCommand(ImageProvider& image_provider)
-{
-    return CommandSharedPtr(new FillCommand(image_provider, selector.GetSelectionList(), color));
-}
 
 
 

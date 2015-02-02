@@ -5,6 +5,7 @@
 #include "imageprovider.h"
 #include "imagetoolprovider.h"
 #include "pbimage.h"
+#include "selectorprovider.h"
 
 
 
@@ -16,6 +17,7 @@ public:
     explicit MouseHandler( QObject* parent
                          , photobalm::ImageProvider&
                          , photobalm::ImageToolProvider&
+                         , photobalm::SelectorProvider&
                          , photobalm::CommandProcessor&);
     ~MouseHandler();
 
@@ -29,6 +31,7 @@ public slots:
 private:
     photobalm::ImageProvider& imageProvider;
     photobalm::ImageToolProvider& toolProvider;
+    photobalm::SelectorProvider& selectorProvider;
     photobalm::CommandProcessor& cmdProcessor;
 };
 

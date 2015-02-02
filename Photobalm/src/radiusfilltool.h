@@ -4,7 +4,8 @@
 
 #include "imageprovider.h"
 #include "imagetool.h"
-#include "radiusselector.h"
+#include "fillcommand.h"
+#include "radiusselection.h"
 #include <QColor>
 
 
@@ -12,22 +13,23 @@ namespace photobalm {
 
 
 
+typedef FillCommand<PBImage, RadiusSelection> RadiusFillCommand;
 
-class RadiusFillTool : public ImageTool
+
+class RadiusFillTool
+: public ImageTool<RadiusFillCommand>
 {
 public:
     RadiusFillTool(int radius, QColor color);
     ~RadiusFillTool();
 
-    virtual Selector& GetSelector();
-
-    virtual CommandSharedPtr CreateCommand(ImageProvider&);
+    virtual CommandSharedPtr CreateCommand();
 
 protected:
     RadiusFillTool();
 
 private:
-    RadiusSelector selector;
+    int radius;
     QColor color;
 };
 

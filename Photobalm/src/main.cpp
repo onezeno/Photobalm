@@ -12,6 +12,7 @@
 #include "mousehandler.h"
 #include "pbimage.h"
 #include "radiusfilltool.h"
+#include "radiusselector.h"
 #include "toolmenuhandler.h"
 
 
@@ -22,7 +23,13 @@ int main(int argc, char *argv[])
 {
   QApplication app(argc, argv);
 
+  RadiusSelector radius_selector(5);
+
+  SelectorProvider selector_provider;
+  selector_provider.SetSelector(&radius_selector);
+
   RadiusFillTool radius_fill_tool(5, QColor(255, 0, 0));
+
 
   ImageToolProvider tool_provider;
   tool_provider.SetTool(&radius_fill_tool);
@@ -52,8 +59,17 @@ int main(int argc, char *argv[])
   ImageProvider image_provider;
   image_provider.SetImage(image);
 
+
+  // the setting of the tool image needs to be moved to a tool menu handler when the user selects the tool
+  radius_fill_tool.SetImage(image);
+  radius_selector.SetImage(image);
+
   FileMenuHandler file_menu_handler(&app, image_provider);
-  MouseHandler mouse_handler(&app, image_provider, tool_provider, cmd_processor);
+  MouseHandler mouse_handler( &app
+                            , image_provider
+                            , tool_provider
+                            , selector_provider
+                            , cmd_processor);
 
 
   engine.rootContext()->setContextProperty("mouseHandler", &mouse_handler);

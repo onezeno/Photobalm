@@ -2,8 +2,9 @@
 #define RADIUSSELECTION_H
 
 
+#include "rect2diterator.h"
 #include "selection.h"
-#include "point2d.h"
+#include "Imagepoint2d.h"
 #include "pbimage.h"
 
 
@@ -12,21 +13,29 @@ namespace photobalm {
 
 
 
-class RadiusSelection : public Selection
+class RadiusSelection
+: public Selection<Rect2dIterator>
 {
 public:
-    RadiusSelection(int radius, Point2D center_point);
+    RadiusSelection(PBImage& image, int radius, ImagePoint2d center_point);
     virtual ~RadiusSelection();
 
-    virtual ImageIterator Begin(PBImage&);
+    virtual Iterator Begin();
+    virtual Iterator End();
 
 protected:
     RadiusSelection();
 
 private:
     int radius;
-    Point2D centerPoint;
+    ImagePoint2d centerPoint;
 };
+
+
+
+
+
+typedef std::list< std::shared_ptr<RadiusSelection> > RadiusSelectionList;
 
 
 

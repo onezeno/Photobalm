@@ -5,21 +5,4 @@ namespace photobalm {
 
 
 
-
-Selector::Selector()
-{
-
-}
-
-
-
-
-Selector::~Selector()
-{
-
-}
-
-
-
-
 } // namespace photobalm

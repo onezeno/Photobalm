@@ -1,12 +1,7 @@
-#include "imagetool.h"
+#include "point2dselectionlist.h"
 
 
 namespace photobalm {
-
-
-
-
-
 
 
 

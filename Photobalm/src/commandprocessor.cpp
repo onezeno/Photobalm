@@ -28,10 +28,16 @@ void CommandProcessor::Process()
 {
     qDebug() << "CommandProcessor::process";
 
-    CommandSharedPtr command_ptr = cmdQueue.front();
+    CommandSharedPtr command_shared_ptr = cmdQueue.front();
     cmdQueue.pop();
 
-    command_ptr->execute();
+    CommandInterface* command_ptr = command_shared_ptr.get();
+
+    // may be a null pointer
+    if (command_ptr)
+    {
+        (*command_ptr)();
+    }
 }
 
 

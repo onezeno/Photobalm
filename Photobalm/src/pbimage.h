@@ -23,8 +23,8 @@ public:
 
   void setPixel(int x, int y, QColor color);
 
-  int GetWidth();
-  int GetHeight();
+  int GetWidth() const;
+  int GetHeight() const;
 
 private:
   QImage m_image;

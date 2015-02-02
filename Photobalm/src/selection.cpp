@@ -6,21 +6,6 @@ namespace photobalm {
 
 
 
-Selection::Selection()
-{
-
-}
-
-Selection::~Selection()
-{
-
-}
-
-
-ImageIterator Selection::End()
-{
-    return ImageIterator(0);
-}
 
 
 

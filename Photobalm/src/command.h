@@ -2,8 +2,9 @@
 #define COMMAND_H
 
 
-#include "imageprovider.h"
-#include "selectionlist.h"
+#include <memory>
+#include <list>
+#include <QDebug>
 
 
 namespace photobalm {
@@ -11,23 +12,67 @@ namespace photobalm {
 
 
 
-class Command
+template <typename ImageType, typename SelectionType>
+class Command : public CommandInterface
 {
 public:
-    Command(ImageProvider& image, const SelectionList&);
+    typedef std::shared_ptr<SelectionType> SelectionSharedPtr;
+    typedef std::list<SelectionSharedPtr> SelectionList;
+    typedef ImageType Image;
+
+    Command(Image& image, const SelectionList&);
     virtual ~Command();
 
-    virtual void execute() = 0;
-    virtual void undo() = 0;
 
 protected:
-    ImageProvider& GetImageProvider();
+    Command();
+
+    Image& GetImage();
     SelectionList& GetSelectionList();
 
+
 private:
-    ImageProvider& imageProvider;
+    Image& image;
     SelectionList selectionList;
 };
+
+
+
+
+template <typename ImageType, typename SelectionType>
+Command<ImageType, SelectionType>::Command(Image& image, const SelectionList& selection_list)
+: image(image)
+, selectionList(selection_list)
+{
+  qDebug() << "Command::Command";
+}
+
+
+
+
+template <typename ImageType, typename SelectionType>
+Command<ImageType, SelectionType>::~Command()
+{
+  qDebug() << "Command::~Command";
+}
+
+
+
+
+template <typename ImageType, typename SelectionType>
+ImageType& Command<ImageType, SelectionType>::GetImage()
+{
+    return image;
+}
+
+
+
+
+template <typename ImageType, typename SelectionType>
+std::list< std::shared_ptr<SelectionType> >& Command<ImageType, SelectionType>::GetSelectionList()
+{
+    return selectionList;
+}
 
 
 

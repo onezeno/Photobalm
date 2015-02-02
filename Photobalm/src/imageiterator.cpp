@@ -1,23 +1,30 @@
 #include "imageiterator.h"
+#include <cstdlib>
 #include <QDebug>
 
 
 namespace photobalm {
 
 
+
+
 ImageIterator::ImageIterator(PBImage* image)
 : image(image)
-, point(0, 0)
+, at(0)
+, step(1)
 {
-    qDebug() << "ImageIterator::ImageIterator";
+    qDebug() << "ImageIterator::ImageIterator(PBImage* image)";
 }
 
 
-ImageIterator::ImageIterator(PBImage*, const Point2D& p)
+
+
+ImageIterator::ImageIterator(PBImage* image , int at, int step)
 : image(image)
-, point(p)
+, at(at)
+, step(step)
 {
-    qDebug() << "ImageIterator::ImageIterator";
+    qDebug() << "ImageIterator::ImageIterator(PBImage*, int at, int stop, int step)";
 }
 
 
@@ -31,45 +38,146 @@ ImageIterator::~ImageIterator()
 
 
 
-void ImageIterator::end()
-{
-    image = 0;
-    point = Point2D(0, 0);
-}
-
-
-
 ImageIterator& ImageIterator::operator++(void)
 {
-  qDebug() << "ImageIterator::operator++ ending iteration";
-  end();
+  qDebug() << "ImageIterator::operator++ " << at;
+
+  at += step;
+
+  qDebug() << "ImageIterator::operator++ " << at;
+
   return *this;
 }
 
 
 
-bool operator==(const ImageIterator& lhs, const ImageIterator& rhs)
+
+int& ImageIterator::operator*()
 {
-    return (lhs.image == rhs.image) && (lhs.point == rhs.point);
+    return at;
 }
 
 
-bool operator!=(const ImageIterator& lhs, const ImageIterator& rhs)
-{
-    qDebug() << "comparing ImageIterators";
-    bool result = !(lhs == rhs);
 
-    if (result)
+
+int* ImageIterator::operator->()
+{
+    return &at;
+}
+
+
+
+
+ImagePoint2d ImageIterator::IndexToImagePoint2d(const PBImage& image, const int index)
+{
+    std::div_t d = std::div(index, image.GetWidth());
+
+    return ImagePoint2d(d.rem, d.quot);
+}
+
+
+
+
+ImagePoint2d ImageIterator::AtImagePoint2d()
+{
+    PBImage* image = GetImage();
+
+    if (!image)
     {
-        qDebug() << "compared ImageIterators not equal";
+        throw std::runtime_error("no image to iterate");
+    }
+
+    return IndexToImagePoint2d(*image, at);
+}
+
+
+
+
+PBImage* ImageIterator::GetImage()
+{
+    return image;
+}
+
+
+
+
+int ImageIterator::GetAt() const
+{
+    return at;
+}
+
+
+
+
+void ImageIterator::SetAt(int value)
+{
+    at = value;
+}
+
+
+
+
+int ImageIterator::GetStep() const
+{
+    return step;
+}
+
+
+
+
+void ImageIterator::SetStep(int value)
+{
+    step = value;
+}
+
+
+
+
+void ImageIterator::GoToEnd()
+{
+    qDebug() << "ImageIterator::GoToEnd " << at;
+
+    if (!image)
+    {
+        at = 0;
     }
     else
     {
-        qDebug() << "compared ImageIterators are equal";
+        int end = image->GetWidth() * image->GetHeight() + 1;
+
+        at = end + (end % step);
     }
 
-    return result;
+    qDebug() << "ImageIterator::GoToEnd " << at;
 }
+
+
+
+
+//bool operator==(const ImageIterator& lhs, const ImageIterator& rhs)
+//{
+//    return (lhs.image == rhs.image) && (lhs.point == rhs.point);
+//}
+
+
+
+
+//bool operator!=(const ImageIterator& lhs, const ImageIterator& rhs)
+//{
+//    qDebug() << "comparing ImageIterators";
+//    bool result = !(lhs == rhs);
+
+//    if (result)
+//    {
+//        qDebug() << "compared ImageIterators not equal";
+//    }
+//    else
+//    {
+//        qDebug() << "compared ImageIterators are equal";
+//    }
+
+//    return result;
+//}
 
 
 

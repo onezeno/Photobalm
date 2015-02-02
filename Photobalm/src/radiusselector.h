@@ -2,7 +2,9 @@
 #define RADIUSSELECTOR_H
 
 
-#include "point2d.h"
+#include "imagepoint2d.h"
+#include "pbimage.h"
+#include "radiusselection.h"
 #include "selector.h"
 
 
@@ -11,19 +13,18 @@ namespace photobalm {
 
 
 
-class RadiusSelector : public Selector
+class RadiusSelector
+: public Selector<PBImage, RadiusSelectionList>
 {
 public:
     RadiusSelector(int radius);
     ~RadiusSelector();
 
-    virtual void AddPoint2D(Point2D);
-
-    virtual SelectionList GetSelectionList();
+    virtual void AddPoint2D(ImagePoint2d);
 
 private:
     int radius;
-    Point2D centerPoint;
+    ImagePoint2d centerPoint;
 };
 
 

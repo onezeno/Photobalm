@@ -2,7 +2,7 @@
 #define COMMANDSHAREDPTR
 
 
-#include "command.h"
+#include "commandinterface.h"
 #include <memory>
 
 
@@ -11,7 +11,7 @@ namespace photobalm {
 
 
 
-typedef std::shared_ptr<Command> CommandSharedPtr;
+typedef std::shared_ptr<CommandInterface> CommandSharedPtr;
 
 
 

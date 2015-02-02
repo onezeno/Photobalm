@@ -2,13 +2,12 @@
 #define IMAGETOOLPROVIDER_H
 
 
+#include "imagetoolinterface.h"
 
 
 namespace photobalm {
 
 
-
-class ImageTool;
 
 
 class ImageToolProvider
@@ -17,13 +16,12 @@ public:
     ImageToolProvider();
     virtual ~ImageToolProvider();
 
-    virtual void SetTool(ImageTool*);
+    virtual void SetTool(ImageToolInterface*);
 
-    virtual ImageTool* GetTool();
+    virtual ImageToolInterface* GetTool();
 
 private:
-
-    ImageTool* tool;
+    ImageToolInterface* tool;
 };
 
 

@@ -3,48 +3,56 @@
 
 
 #include "pbimage.h"
-#include "point2d.h"
+#include "imagepoint2d.h"
 
 
 namespace photobalm {
 
 
 
+
 class ImageIterator
 {
-    friend bool operator==(const ImageIterator& lhs, const ImageIterator& rhs);
-    friend bool operator!=(const ImageIterator& lhs, const ImageIterator& rhs);
-
 public:
     ImageIterator(PBImage*);
-    ImageIterator(PBImage*, const Point2D&);
-    ~ImageIterator();
+    ImageIterator(PBImage*, int at, int step);
 
-    ImageIterator& operator++(void);
+    virtual ~ImageIterator();
 
-    Point2D& operator*()
-    {
-        return point;
-    }
+    virtual ImageIterator& operator++(void);
 
-    Point2D* operator->()
-    {
-        return &point;
-    }
+    virtual int& operator*();
+    virtual int* operator->();
+
+    static ImagePoint2d IndexToImagePoint2d(const PBImage&, const int index);
+
+    virtual ImagePoint2d AtImagePoint2d();
+
+    virtual void GoToEnd();
+
+    PBImage* GetImage();
+
+    int GetAt() const;
+    void SetAt(int);
+
+    int GetStep() const;
+    void SetStep(int);
+
 
 protected:
     ImageIterator();
 
-    void end();
 
 private:
     PBImage* image;
-    Point2D point;
+
+    int at;
+    int step;
 };
 
 
-bool operator==(const ImageIterator& lhs, const ImageIterator& rhs);
-bool operator!=(const ImageIterator& lhs, const ImageIterator& rhs);
+//bool operator==(const ImageIterator& lhs, const ImageIterator& rhs);
+//bool operator!=(const ImageIterator& lhs, const ImageIterator& rhs);
 
 
 

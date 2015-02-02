@@ -20,7 +20,7 @@ ImageToolProvider::~ImageToolProvider()
 
 
 
-void ImageToolProvider::SetTool(ImageTool* t)
+void ImageToolProvider::SetTool(ImageToolInterface* t)
 {
     tool = t;
 }
@@ -28,7 +28,7 @@ void ImageToolProvider::SetTool(ImageTool* t)
 
 
 
-ImageTool* ImageToolProvider::GetTool()
+ImageToolInterface* ImageToolProvider::GetTool()
 {
     return tool;
 }

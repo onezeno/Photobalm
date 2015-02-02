@@ -26,21 +26,21 @@ RadiusSelector::~RadiusSelector()
 
 
 
-void RadiusSelector::AddPoint2D(Point2D p)
+void RadiusSelector::AddPoint2D(ImagePoint2d p)
 {
+    qDebug() << "RadiusSelector::AddPoint2D " << p.x << ", " << p.y;
     this->centerPoint = p;
-}
 
+    SelectionList& selection_list = GetSelectionList();
+    PBImage* image = GetImage();
 
+    if (!image)
+    {
+        return;
+    }
 
-
-SelectionList RadiusSelector::GetSelectionList()
-{
-    SelectionList list;
-
-    list.push_back(SelectionSharedPtr(new RadiusSelection(radius, centerPoint)));
-
-    return list;
+    std::shared_ptr<RadiusSelection> ptr = std::shared_ptr<RadiusSelection>(new RadiusSelection(*image, radius, p));
+    selection_list.push_back(ptr);
 }
 
 

@@ -11,7 +11,7 @@ namespace photobalm {
 
 
 
-typedef std::shared_ptr<Selection> SelectionSharedPtr;
+//typedef std::shared_ptr<Selection> SelectionSharedPtr;
 
 
 
