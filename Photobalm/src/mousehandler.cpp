@@ -3,6 +3,7 @@
 #include "imagetool.h"
 #include "radiusfilltool.h"
 #include "radiusselector.h"
+#include "seamcarvetool.h"
 #include "selectorinterface.h"
 #include <QDebug>
 
@@ -90,6 +91,7 @@ void MouseHandler::onClicked(int mouseX, int mouseY, int width, int height)
         RadiusSelector::SelectionList& selection_list = radius_selector_ptr->GetSelectionList();
 
 
+        /* TODO - NEED TO MAKE THIS WORK FOR ALL TOOLS
         qDebug() << "casting to RadiusFillTool";
         RadiusFillTool* radius_fill_tool_ptr = dynamic_cast<RadiusFillTool*>(tool_ptr);
         qDebug() << "cast to RadiusFillTool";
@@ -104,6 +106,23 @@ void MouseHandler::onClicked(int mouseX, int mouseY, int width, int height)
         radius_fill_tool_ptr->SetSelectionList(&selection_list);
 
         CommandSharedPtr new_command = radius_fill_tool_ptr->CreateCommand();
+        */
+
+        qDebug() << "casting to SeamCarveTool";
+        SeamCarveTool* seam_carve_tool_ptr = dynamic_cast<SeamCarveTool*>(tool_ptr);
+        qDebug() << "cast to SeamCarveTool";
+
+
+        if (!seam_carve_tool_ptr)
+        {
+            qDebug() << "could not cast to SeamCarveTool";
+            return;
+        }
+
+        seam_carve_tool_ptr->SetSelectionList(&selection_list);
+
+        CommandSharedPtr new_command = seam_carve_tool_ptr->CreateCommand();
+
         cmdProcessor.Process(new_command);
     }
     catch (std::bad_cast& error)

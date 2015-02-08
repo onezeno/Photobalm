@@ -13,6 +13,7 @@
 #include "pbimage.h"
 #include "radiusfilltool.h"
 #include "radiusselector.h"
+#include "seamcarvetool.h"
 #include "toolmenuhandler.h"
 
 
@@ -28,11 +29,14 @@ int main(int argc, char *argv[])
   SelectorProvider selector_provider;
   selector_provider.SetSelector(&radius_selector);
 
-  RadiusFillTool radius_fill_tool(5, QColor(255, 0, 0));
+  //RadiusFillTool radius_fill_tool(5, QColor(255, 0, 0));
+
+  SeamCarveTool seam_carve_tool(5, QColor(0, 255, 0));
 
 
   ImageToolProvider tool_provider;
-  tool_provider.SetTool(&radius_fill_tool);
+  //tool_provider.SetTool(&radius_fill_tool);
+  tool_provider.SetTool(&seam_carve_tool);
 
   CommandStack undo_stack;
   CommandQueue redo_queue;
@@ -61,8 +65,10 @@ int main(int argc, char *argv[])
 
 
   // the setting of the tool image needs to be moved to a tool menu handler when the user selects the tool
-  radius_fill_tool.SetImage(image);
+//  radius_fill_tool.SetImage(image);
   radius_selector.SetImage(image);
+
+  seam_carve_tool.SetImage(image);
 
   FileMenuHandler file_menu_handler(&app, image_provider);
   MouseHandler mouse_handler( &app
