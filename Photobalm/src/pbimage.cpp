@@ -17,7 +17,11 @@ void PBImage::setImage(QString url)
   qDebug() << "loading url " << url;
 
   // NOTE: THE STRING BELOW WAS TRIMMED TO 7 WITH LINUX?
+#ifdef _MSC_VER
+  QString trimmed_string = url.right( url.size() - 8);
+#else
   QString trimmed_string = url.right( url.size() - 7);
+#endif
   bool loaded = m_image.load(trimmed_string);
 
   if (loaded)

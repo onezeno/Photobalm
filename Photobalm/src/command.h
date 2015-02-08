@@ -2,7 +2,7 @@
 #define COMMAND_H
 
 
-#include <commandinterface.h>
+#include "commandinterface.h"
 
 #include <memory>
 #include <list>
