@@ -31,7 +31,9 @@ SOURCES += main.cpp \
     selectorinterface.cpp \
     point2diterator.cpp \
     selectorprovider.cpp \
-    imagepoint2d.cpp
+    imagepoint2d.cpp \
+    seamcarvecommand.cpp \
+    seamcarvetool.cpp
 
 
 RESOURCES += qml.qrc
@@ -79,4 +81,6 @@ HEADERS += \
     selectorinterface.h \
     point2diterator.h \
     selectorprovider.h \
-    imagepoint2d.h
+    imagepoint2d.h \
+    seamcarvecommand.h \
+    seamcarvetool.h
