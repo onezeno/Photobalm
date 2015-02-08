@@ -13,8 +13,25 @@ void PBImage::paint(QPainter *painter) { painter->drawImage(painter->window(), m
 void PBImage::setImage(QString url)
 {
   // log
+
+  qDebug() << "loading url " << url;
+
+  // NOTE: THE STRING BELOW WAS TRIMMED TO 7 WITH LINUX?
+#ifdef _MSC_VER
+  QString trimmed_string = url.right( url.size() - 8);
+#else
   QString trimmed_string = url.right( url.size() - 7);
+#endif
   bool loaded = m_image.load(trimmed_string);
+
+  if (loaded)
+  {
+      qDebug() << "image loaded " << trimmed_string;
+  }
+  else
+  {
+      qDebug() << "image not loaded " << trimmed_string;
+  }
 }
 
 
@@ -39,16 +56,36 @@ void PBImage::highlightArea(int x, int y, int r)
   for (int i= x-r; i<= x+r; ++i )
   {
     // check bounds
-    if (i<0 or i>= m_image.width()) { continue; }
+    if (i<0 || i>= m_image.width()) { continue; }
 
     for (int j=y-r; j<=y+r; ++j)
     {
       // check bounds
-      if (j<0 or j>= m_image.height()) { continue; }
+      if (j<0 || j>= m_image.height()) { continue; }
 
       QColor black(0, 0, 0);
       m_image.setPixel(i, j, black.rgb());
     }
   }
+}
+
+
+
+
+void PBImage::setPixel(int x, int y, QColor color)
+{
+    m_image.setPixel(x, y, color.rgb());
+}
+
+
+int PBImage::GetWidth() const
+{
+    return m_image.width();
+}
+
+
+int PBImage::GetHeight() const
+{
+    return m_image.height();
 }
 

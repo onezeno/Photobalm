@@ -27,8 +27,19 @@ ApplicationWindow {
         Menu {
             title: qsTr("&Edit")
             MenuItem {
-                text: qsTr("&Clear");
-                onTriggered: messageDialog.show(qsTr("Clear action triggered"));
+                text: qsTr("Undo (Ctrl+&Z)");
+                onTriggered: editMenuHandler.undo();
+            }
+            MenuItem {
+                text: qsTr("Redo (Ctrl+&Y)");
+                onTriggered: editMenuHandler.redo();
+            }
+        }
+        Menu {
+            title: qsTr("&Tools")
+            MenuItem {
+                text: qsTr("&Fill");
+                onTriggered: toolMenuHandler.fill();
             }
         }
     }
@@ -37,8 +48,7 @@ ApplicationWindow {
         id: fileDialog
         title: "Please choose a file"
         onAccepted: {
-            main_image.setImage(fileDialog.fileUrl)
-            main_image.update()
+            fileMenuHandler.load(fileDialog.fileUrl)
             visible: false;
         }
         onRejected: {
@@ -49,22 +59,23 @@ ApplicationWindow {
 
     MouseArea {
         anchors.fill: parent
-        onClicked: main_image.highlight(mouseX, mouseY, width, height)
-        onPositionChanged: main_image.highlight(mouseX, mouseY, width, height)
+        onClicked: mouseHandler.onClicked(mouseX, mouseY, width, height, main_image)
+        onPositionChanged: mouseHandler.onPositionChanged(mouseX, mouseY, width, height, main_image)
         PBImage {
             id: main_image
+            objectName: "mainImage"
             anchors.fill: parent
         }
     }
 
 
-
     MessageDialog {
         id: messageDialog
-        title: qsTr("May I have your attention, please?")
+        title: qsTr("")
 
-        function show(caption) {
-            messageDialog.text = caption;
+        function show(text, title) {
+            messageDialog.title = title;
+            messageDialog.text = text;
             messageDialog.open();
         }
     }
