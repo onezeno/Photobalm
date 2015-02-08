@@ -69,7 +69,7 @@ bool operator==(Rect2dIterator& lhs, Rect2dIterator& rhs)
 
 
 
-bool operator!=(Rect2dIterator& lhs, Rect2dIterator& rhs)
+bool operator!=(const Rect2dIterator& lhs, const Rect2dIterator& rhs)
 {
     qDebug() << "operator!=(Rect2dIterator& lhs, Rect2dIterator& rhs) " << lhs.GetAt() << " " << rhs.GetAt();
     return lhs.GetAt() != rhs.GetAt();

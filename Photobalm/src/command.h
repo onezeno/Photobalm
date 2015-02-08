@@ -2,6 +2,8 @@
 #define COMMAND_H
 
 
+#include <commandinterface.h>
+
 #include <memory>
 #include <list>
 #include <QDebug>
@@ -12,7 +14,7 @@ namespace photobalm {
 
 
 
-template <typename ImageType, typename SelectionType>
+template <class ImageType, class SelectionType>
 class Command : public CommandInterface
 {
 public:
@@ -59,7 +61,7 @@ Command<ImageType, SelectionType>::~Command()
 
 
 
-template <typename ImageType, typename SelectionType>
+template <class ImageType, class SelectionType>
 ImageType& Command<ImageType, SelectionType>::GetImage()
 {
     return image;

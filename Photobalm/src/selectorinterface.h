@@ -2,7 +2,7 @@
 #define SELECTORINTERFACE_H
 
 
-#include "Imagepoint2d.h"
+#include "imagepoint2d.h"
 
 
 namespace photobalm {

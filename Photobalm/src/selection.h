@@ -11,12 +11,12 @@ namespace photobalm {
 
 
 
-template <typename IteratorType>
+template <class IteratorType>
 class Selection
 {
 public:
     typedef IteratorType Iterator;
-    friend typename Iterator;
+    //friend class IteratorType;
 
     Selection(PBImage&);
     virtual ~Selection();

@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
   QObject* root = engine.rootObjects().first();
   PBImage* image = root->findChild<PBImage*>("mainImage");
 
-  qDebug() << "Image pointer is " << int(image);
+  //qDebug() << "Image pointer is " << int(image);
 
   ImageProvider image_provider;
   image_provider.SetImage(image);

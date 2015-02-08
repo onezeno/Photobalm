@@ -2,7 +2,7 @@
 #define SELECTOR_H
 
 
-#include "Imagepoint2d.h"
+#include "imagepoint2d.h"
 #include "selectionlist.h"
 #include "selectorinterface.h"
 

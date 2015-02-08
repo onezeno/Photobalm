@@ -4,7 +4,7 @@
 
 #include "rect2diterator.h"
 #include "selection.h"
-#include "Imagepoint2d.h"
+#include "imagepoint2d.h"
 #include "pbimage.h"
 
 

@@ -4,6 +4,7 @@
 
 #include "command.h"
 #include "imagepoint2d.h"
+#include "rect2diterator.h"
 #include "selectionsharedptr.h"
 #include <QColor>
 
@@ -17,8 +18,8 @@ class FillCommand
 : public Command<ImageType, SelectionType>
 {
 public:
-    FillCommand( Image&
-               , const SelectionList&
+    FillCommand( ImageType&
+               , const typename Command<ImageType, SelectionType>::SelectionList&
                , QColor);
 
     virtual ~FillCommand();
@@ -35,11 +36,11 @@ private:
 
 
 
-template <typename ImageType, typename SelectionType>
+template <class ImageType, class SelectionType>
 FillCommand<ImageType, SelectionType>::FillCommand( ImageType& image
-                                                  , const SelectionList& selection_list
+                                                  , const typename Command<ImageType, SelectionType>::SelectionList& selection_list
                                                   , QColor color)
-: Command(image, selection_list)
+: Command<ImageType, SelectionType>(image, selection_list)
 , color(color)
 {
     qDebug() << "FillCommand::FillCommand";
@@ -57,21 +58,21 @@ FillCommand<ImageType, SelectionType>::~FillCommand()
 
 
 
-template <typename ImageType, typename SelectionType>
+template <class ImageType, class SelectionType>
 void FillCommand<ImageType, SelectionType>::operator()()
 {
     qDebug() << "FillCommand::execute";
 
-    ImageType& image = GetImage();
+    ImageType& image = Command<ImageType, SelectionType>::GetImage();
 
-    SelectionList& selection_list = GetSelectionList();
-    for( SelectionList::iterator selection_it = selection_list.begin();
+    auto selection_list = Command<ImageType, SelectionType>::GetSelectionList();
+    for( auto selection_it = selection_list.begin();
          selection_it != selection_list.end();
          selection_it++)
     {
         qDebug() << "FillCommand::execute in selection list";
 
-        SelectionSharedPtr selection_ptr = *selection_it;
+        auto selection_ptr = *selection_it;
 
 
         int i = 0;
@@ -80,7 +81,7 @@ void FillCommand<ImageType, SelectionType>::operator()()
             ++image_it)
         {
 
-            ImagePoint2d& point = image_it.AtImagePoint2d();
+            const ImagePoint2d& point = image_it.AtImagePoint2d();
 
             qDebug() << "FillCommand::execute setting pixel " << point.x << ", " << point.y;
 
